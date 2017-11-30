@@ -19,7 +19,7 @@ const STATES = {
   ANIMATING: 'ANIMATING',
 };
 
-const ANIMATION_DURATION = 300;
+const ANIMATION_DURATION = 150;
 const EASING = Easing.bezier(0.4, 0, 0.2, 1);
 const MENU_PADDING_VERTICAL = 8;
 const SCREEN_INDENT = 8;
@@ -155,12 +155,12 @@ class Menu extends React.Component {
     const modalVisible = menuState === STATES.SHOWN || animationStarted;
 
     return (
-      <View ref={this._setContainerRef} collapsable={false}>
+      <View ref={this._setContainerRef} collapsable={false} >
         <View onLayout={this._onButtonLayout}>{this.props.button}</View>
 
-        <Modal visible={modalVisible} onRequestClose={this.hide} transparent>
-          <TouchableWithoutFeedback onPress={this.hide}>
-            <View style={StyleSheet.absoluteFill}>
+        <Modal visible={modalVisible} onRequestClose={this.hide} animationType="fade" transparent>
+          <TouchableWithoutFeedback onPress={this.hide} >
+            <View style={[StyleSheet.absoluteFill, this.props.modalStyle]}>
               <Animated.View
                 onLayout={this._onMenulLayout}
                 style={[
