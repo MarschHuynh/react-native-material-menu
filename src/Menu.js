@@ -19,7 +19,6 @@ const STATES = {
   ANIMATING: 'ANIMATING',
 };
 
-const ANIMATION_DURATION = 150;
 const EASING = Easing.bezier(0.4, 0, 0.2, 1);
 const MENU_PADDING_VERTICAL = 8;
 const SCREEN_INDENT = 8;
@@ -68,12 +67,12 @@ class Menu extends React.Component {
         Animated.parallel([
           Animated.timing(this.state.menuSizeAnimation, {
             toValue: { x: width, y: menuHeightWithPadding },
-            duration: ANIMATION_DURATION,
+            duration: this.props.openDuration,
             easing: EASING,
           }),
           Animated.timing(this.state.opacityAnimation, {
             toValue: 1,
-            duration: ANIMATION_DURATION,
+            duration: this.props.openDuration,
             easing: EASING,
           }),
         ]).start();
@@ -100,7 +99,7 @@ class Menu extends React.Component {
   hide = () => {
     Animated.timing(this.state.opacityAnimation, {
       toValue: 0,
-      duration: ANIMATION_DURATION,
+      duration: this.props.openDuration,
       easing: EASING,
     }).start(() =>
       // Reset state
@@ -209,5 +208,9 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
 });
+
+Menu.defaultProps = {
+  openDuration: 300,
+}
 
 export default Menu;
